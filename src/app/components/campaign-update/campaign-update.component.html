@@ -1,0 +1,70 @@
+<div class="container mt-4 mb-5">
+
+  <div class="row justify-content-center" *ngIf="getCampaign.durum=='Mükerrer'">
+    <div class="col-md-10">
+      <div class="alert alert-danger" role="alert">
+        Durumu "Mükerrer" olan kampanya güncellenemez.
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+
+        <div class="card-body">
+
+          <form [formGroup]="campaignUpdateForm" (ngSubmit)="onSubmit()" autocomplete="off">
+
+            <div class="form-group">
+              <label for="ilanBasligi">İlan Başlığı</label>
+              <input type="text" class="form-control mt-1" [value]="getCampaign.ilanBasligi" [disabled]="true">
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="detayAciklamasi">Detay Açıklaması</label>
+              <textarea class="form-control mt-1" [value]="getCampaign.detayAciklamasi" [disabled]="true"></textarea>
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="durum">Durum</label>
+              <select
+              class="form-control mt-1 is-invalid"
+              formControlName="durum"
+              [ngClass]="{'is-invalid':campaignUpdateForm.get('durum').invalid}">
+                <option value="">Durum Seçin</option>
+                <option value="Aktif">Aktif</option>
+                <option value="Deaktif">Deaktif</option>
+                <option value="Onay Bekliyor">Onay Bekliyor</option>
+                <option value="Mükerrer">Mükerrer</option>
+              </select>
+              <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Durum boş bırakılamaz.
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="olusturulmaTarihi">Oluşturulma Tarihi</label>
+              <input type="date" class="form-control mt-1" [value]="this.theCampaign.olusturulmaTarihi | date:'yyyy-MM-dd'" [disabled]="true">
+              <small>(dd-MM-yyyy)</small>
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="sonGuncellenmeTarihi">Son Güncellenme Tarihi</label>
+              <input type="date" class="form-control mt-1" [value]="this.theCampaign.sonGuncellenmeTarihi | date:'yyyy-MM-dd'" [disabled]="true">
+              <small>(dd-MM-yyyy)</small>
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="kategoriAdi">Kategori Adı</label>
+              <input type="text" class="form-control mt-1" [value]="this.theCampaign.kampanyaKategori?.kategoriAdi" [disabled]="true">
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4" [disabled]="getCampaign.durum=='Mükerrer' || submittedBtn">Güncelle</button> &nbsp;
+            <button class="btn btn-secondary mt-4" routerLink="/">İptal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="container mt-4 mb-5">
+
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+
+        <div class="card-body">
+
+          <form [formGroup]="addFrom" (ngSubmit)="onSubmit()" autocomplete="off">
+
+            <div class="form-group">
+              <label for="ilanBasligi">İlan Başlığı</label>
+              <input type="text" class="form-control mt-1" formControlName="ilanBasligi"
+                placeholder="İlan Başlığı Girin"
+                [ngClass]="{
+                'is-invalid': (addFrom.get('ilanBasligi').invalid && submitted) || (addFrom.get('ilanBasligi').touched && addFrom.get('ilanBasligi').invalid),
+                'is-valid': (addFrom.get('ilanBasligi').touched && addFrom.get('ilanBasligi').valid) || (addFrom.get('ilanBasligi').valid && submitted)}">
+
+              <div class="invalid-feedback" *ngIf="addFrom.get('ilanBasligi').errors?.['minlength']">
+                Minimum 10 karakter olmalı.
+              </div>
+              <div class="invalid-feedback" *ngIf="addFrom.get('ilanBasligi').errors?.['maxlength']">
+                Maksimum 50 karakter olmalı.
+              </div>
+              <div class="invalid-feedback" *ngIf="addFrom.get('ilanBasligi').errors?.['required']">
+                Zorunlu alan, boş bırakılamaz.
+              </div>
+              <div class="invalid-feedback" *ngIf="addFrom.get('ilanBasligi').errors?.['pattern']">
+                Harf (Türkçe karakterler dahil) veya Rakam ile başlamalıdır.
+              </div>
+
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="detayAciklamasi">Detay Açıklaması</label>
+              <textarea class="form-control mt-1" formControlName="detayAciklamasi" placeholder="Detay Açıklaması Girin"
+                [ngClass]="{
+                'is-invalid': (addFrom.get('detayAciklamasi').invalid && submitted) || (addFrom.get('detayAciklamasi').touched && addFrom.get('detayAciklamasi').invalid) ,
+                'is-valid': (addFrom.get('detayAciklamasi').touched && addFrom.get('detayAciklamasi').valid) || (addFrom.get('detayAciklamasi').valid && submitted)}"></textarea>
+
+              <div class="invalid-feedback" *ngIf="addFrom.get('detayAciklamasi').errors?.['minlength']">
+                Minimum 20 karakter olmalı.
+              </div>
+              <div class="invalid-feedback" *ngIf="addFrom.get('detayAciklamasi').errors?.['maxlength']">
+                Maksimum 200 karakter olmalı.
+              </div>
+              <div class="invalid-feedback" *ngIf="addFrom.get('detayAciklamasi').errors?.['required']">
+                Zorunlu alan, boş bırakılamaz.
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+              <label for="durum">Kategori</label>
+              <select #kategorySelect class="form-control mt-1" formControlName="kategori"
+                [ngClass]="{
+                'is-invalid':(addFrom.get('kategori').invalid && submitted) || (addFrom.get('kategori').touched && addFrom.get('kategori').invalid),
+                'is-valid': (addFrom.get('kategori').touched && addFrom.get('kategori').valid) || (addFrom.get('kategori').valid && submitted)}">
+
+                <option value="" selected>Kategori Seçin</option>
+                <option id="{{category.id}}" value="{{category.id}}" *ngFor="let category of categories">{{category.kategoriAdi}}
+                </option>
+              </select>
+
+              <div class="invalid-feedback" *ngIf="addFrom.get('kategori').errors?.['required']">
+                Zorunlu alan, boş bırakılamaz.
+              </div>
+
+            </div>
+
+            <div class="alert alert-danger mt-4" role="alert" *ngIf="hasError">
+              {{errorMessage}}
+            </div>
+
+
+            <button type="submit" class="btn btn-primary mt-4" [disabled]="isPageDisable">Kaydet</button> &nbsp;
+            <button class="btn btn-secondary mt-4" routerLink="/">İptal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

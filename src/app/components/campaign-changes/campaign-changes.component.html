@@ -1,0 +1,84 @@
+<div style="overflow-x:auto;"  *ngIf="campaignList.length>0">
+  <div class="container ">
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <button class="btn btn-secondary btn-sm" routerLink="/">Geri dön</button>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <table class="table  table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>İlan Başlığı</th>
+              <th>Detay Açıklaması</th>
+              <th>Durum</th>
+              <th>Kategori Adı</th>
+              <th>Değiştirilme Tarihi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let campaign of campaignList">
+              <td>{{ campaign.ilanBasligi }}</td>
+              <td>{{ campaign.detayAciklamasi }}</td>
+              <td>{{ campaign.durum }}</td>
+              <td>{{ campaign.kategoriAdi }}</td>
+              <td>{{ campaign.degisiklikTarihi | date:'dd MMMM yyyy, HH:mm:ss' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="campaignList.length>0">
+      <div class="col-md-12">
+        <ngb-pagination
+        [(page)]="pageNumber"
+        [pageSize]="pageSize"
+        [collectionSize]="totalElements"
+        (pageChange)="pageChange()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="container"  *ngIf="!hasError && campaignList.length==0">
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <button class="btn btn-secondary btn-sm" routerLink="/">Geri dön</button>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="alert alert-secondary" role="alert">
+          Kampanyaya ait değişiklik bulunmamaktadır.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="container"  *ngIf="hasError">
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <button class="btn btn-secondary btn-sm" routerLink="/">Geri dön</button>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+      </div>
+    </div>
+  </div>

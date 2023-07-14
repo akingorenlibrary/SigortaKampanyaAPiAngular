@@ -1,0 +1,6 @@
+<div class="input-group" >
+  <input type="text" [(ngModel)]="searchText" (keyup.enter)="searchCampaign()"  class="form-control" placeholder="Kampanya ara">
+  <button class="btn btn-outline-secondary" type="button" (click)="searchCampaignClear()"><i class="bi bi-x-lg"></i></button>
+  <button class="btn btn-outline-primary" type="button" (click)="searchCampaign()">Ara</button>
+</div>
+<small>(Kampanya başlığına göre arama yapar.)</small>

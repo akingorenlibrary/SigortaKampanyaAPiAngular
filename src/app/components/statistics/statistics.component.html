@@ -1,0 +1,34 @@
+<div class="container mt-3" *ngIf="statistics.length>0">
+  <div class="row justify-content-center" >
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let statistic of statistics">{{statistic.durum}} : {{statistic.sayi}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5" *ngIf="!hasError && statistics.length==0">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="alert alert-secondary" role="alert">
+        Kampanya bulunmadığı için istatistikde bulunmaz.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5" *ngIf="hasError">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+
+    </div>
+  </div>
+</div>
+

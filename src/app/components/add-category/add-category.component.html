@@ -1,0 +1,44 @@
+<div class="container mt-4">
+
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-secondary" routerLink="/categories">Kategori Listesi</button>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card p-3">
+
+        <form [formGroup]="addCategory" (ngSubmit)="onSubmit()" autocomplete="off">
+
+          <div class="form-group">
+            <label for="kategoriAdi">Kategori Adı</label>
+            <input type="text" class="form-control mt-1" formControlName="kategoriAdi"
+              placeholder="Kategori Adı Girin"
+              [ngClass]="{
+              'is-invalid': (addCategory.get('kategoriAdi').invalid && submitted) || (addCategory.get('kategoriAdi').touched && addCategory.get('kategoriAdi').invalid),
+              'is-valid': (addCategory.get('kategoriAdi').touched && addCategory.get('kategoriAdi').valid) || (addCategory.get('kategoriAdi').valid && submitted)}">
+
+            <div class="invalid-feedback" *ngIf="addCategory.get('kategoriAdi').errors?.['required']">
+              Zorunlu alan, boş bırakılamaz.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-4">Kaydet</button> &nbsp;
+          <button class="btn btn-secondary mt-4" routerLink="/categories">İptal</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="hasError">
+   <div class="col-md-12">
+    <div class="alert alert-danger" role="alert">
+      {{errorMessage}}
+    </div>
+   </div>
+  </div>
+</div>

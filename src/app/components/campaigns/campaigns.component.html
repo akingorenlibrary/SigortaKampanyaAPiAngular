@@ -1,0 +1,106 @@
+<div style="overflow-x:auto;">
+  <div class="container mt-5">
+
+    <div class="row" *ngIf="campaigns.length>0 || (campaigns.length==0 && searchMode)">
+      <div class="col-md-6">
+        <app-search></app-search>
+      </div>
+    </div>
+
+    <div class="row mt-3" *ngIf="searchMode">
+      <div class="col-md-12">
+        <div class="alert alert-secondary" role="alert" *ngIf="campaigns.length>0">
+          {{totalElements}} kampanya bulundu.
+        </div>
+        <div class="alert alert-secondary" role="alert" *ngIf="campaigns.length==0">
+          Kampanya bulunamadı.
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mt-4" *ngIf="campaigns.length>0">
+      <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>İlan Başlığı</th>
+              <th>Detay Açıklaması</th>
+              <th>Durum</th>
+              <th>Oluşturulma Tarihi</th>
+              <th>Son Güncellenme Tarihi</th>
+              <th>Kategori Adı</th>
+              <th>İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let campaign of campaigns">
+              <td>
+                <p class="text-break">
+                  {{ campaign.ilanBasligi }}
+                </p>
+              </td>
+              <td>
+                <p class="text-break">
+                  {{ campaign.detayAciklamasi }}
+                </p>
+              </td>
+              <td>{{ campaign.durum }}</td>
+              <td> <p class="text-break">{{ campaign.olusturulmaTarihi | date:'dd MMMM yyyy, HH:mm:ss' }}</p></td>
+              <td><p class="text-break">{{ campaign.sonGuncellenmeTarihi | date:'dd MMMM yyyy, HH:mm:ss' }}</p></td>
+              <td><p class="text-break">{{ campaign.kampanyaKategori.kategoriAdi }}</p></td>
+              <td>
+                <button class="btn btn-outline-secondary btn-sm mt-1" routerLink="/campaign/update/{{campaign.id}}">
+                  <i class="bi bi-pencil"></i>
+                </button>&nbsp;
+                <button class="btn btn-outline-secondary btn-sm mt-1" routerLink="/campaign/changes/{{campaign.id}}">
+                  <i class="bi bi-clock-history"></i>
+                </button>&nbsp;
+                <button class="btn btn-outline-secondary btn-sm mt-1" (click)="deleteCampaign(campaign.id)">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-5" *ngIf="campaigns.length>0">
+      <div class="col">
+        <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements"
+          (pageChange)="listCampaigns()"></ngb-pagination>
+      </div>
+      <div class="col">
+        <select #sizeSelect class="form-select" (change)="sizeChange(sizeSelect.value)">
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="container " *ngIf="hasError">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="!hasError && campaigns.length==0 && !searchMode">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-secondary" role="alert">
+        Kampanya bulunmamaktadır.
+      </div>
+    </div>
+  </div>
+</div>
